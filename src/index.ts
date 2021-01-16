@@ -1,4 +1,3 @@
-import Button from './components/Button'
-import FullScreenDialog from './components/FullScreenDialog'
-
+const Button = './components/Button'
+const FullScreenDialog = './components/FullScreenDialog'
 export { Button, FullScreenDialog }
