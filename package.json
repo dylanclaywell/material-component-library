@@ -6,7 +6,8 @@
   "author": "Dylan Claywell <djclaywell@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack"
+    "build": "cross-env NODE_ENV=production webpack",
+    "install": "npm run build"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
