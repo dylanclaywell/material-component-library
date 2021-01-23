@@ -1,3 +1,2 @@
-const Button = './components/Button'
-const FullScreenDialog = './components/FullScreenDialog'
-export { Button, FullScreenDialog }
+export { default as Button } from './components/Button'
+export { default as FullScreenDialog } from './components/FullScreenDialog'
