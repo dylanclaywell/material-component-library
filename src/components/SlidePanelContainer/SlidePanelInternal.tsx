@@ -5,7 +5,7 @@ type Props = {
   isOpen: boolean
 }
 
-const SlidePanel = ({ children, isOpen }: Props) => {
+const SlidePanel: React.FC<Props> = ({ children, isOpen }: Props) => {
   if (!isOpen) return null
 
   return <div>{children}</div>

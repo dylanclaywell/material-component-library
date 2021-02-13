@@ -5,7 +5,7 @@ type Props = {
   name: string
 }
 
-const SlidePanel = ({ children }: Props) => {
+const SlidePanel: React.FC<Props> = ({ children }: Props) => {
   return <div>{children}</div>
 }
 
