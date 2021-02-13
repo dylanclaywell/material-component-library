@@ -1,13 +1,12 @@
 {
   "name": "@dylanclaywell/material-component-library",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "dist/index.js",
   "repository": "https://github.com/dylanclaywell/material-component-library.git",
   "author": "Dylan Claywell <djclaywell@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "install": "yarn build",
     "start:dev": "cross-env NODE_ENV=development webpack serve"
   },
   "devDependencies": {
