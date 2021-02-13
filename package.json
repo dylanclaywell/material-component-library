@@ -11,7 +11,14 @@
     "check:styles": "prettier --check \"src/**/*.ts\"",
     "fix:styles": "prettier --write \"src/**/*.ts\"",
     "build": "cross-env NODE_ENV=production webpack && tsc --emitDeclarationOnly",
-    "start:dev": "cross-env NODE_ENV=development webpack serve"
+    "start:dev": "cross-env NODE_ENV=development webpack serve",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:debug": "jest --runInBand --watch --inspectBrk",
+    "validate": "yarn check:types && yarn check:lint && yarn check:styles && yarn test && yarn build"
+  },
+  "husky": {
+    "pre-commit": "yarn validate"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
@@ -20,7 +27,11 @@
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.7.1",
     "@types/classnames": "^2.2.11",
+    "@types/jest": "^26.0.20",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router": "^5.1.11",
@@ -33,9 +44,12 @@
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-react": "^7.22.0",
     "html-webpack-plugin": "^5.1.0",
+    "husky": "^5.0.9",
+    "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "ts-jest": "^26.5.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
     "webpack": "^5.15.0",
@@ -46,6 +60,7 @@
     "classnames": "^2.2.6",
     "copy-webpack-plugin": "^7.0.0",
     "cross-env": "^7.0.3",
+    "jest-watch-typeahead": "^0.6.1",
     "react-jss": "^10.5.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0"
