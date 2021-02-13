@@ -34,12 +34,14 @@ const FullScreenDialog: React.FC<Props> = ({
   children,
 }: Props) => {
   const classes = useStyles()
+
   return (
     <div
       className={classnames(
         classes.root,
-        { [classes.isOpen]: isOpen, [styles.isOpen]: isOpen },
-        styles.root
+        { [classes.isOpen]: isOpen },
+        styles?.isOpen && { [styles.isOpen]: isOpen },
+        styles?.root
       )}
     >
       {children}

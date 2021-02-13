@@ -4,6 +4,7 @@ import classnames from 'classnames'
 
 import { Props as MenuItemProps } from '../MenuItem'
 import Menu from '../Menu'
+import MenuItem from '../MenuItem'
 import colors from '../../colors'
 
 type Props = {
@@ -96,7 +97,7 @@ const TextField: React.FC<Props> = ({
   variant = 'default',
   children,
 }: Props) => {
-  const inputRef = useRef<HTMLInputElement>()
+  const inputRef = useRef<HTMLInputElement>(null)
   const [selectMenuIsOpen, setSelectMenuIsOpen] = useState<boolean>(false)
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const classes = useStyles()
@@ -128,11 +129,11 @@ const TextField: React.FC<Props> = ({
       const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
         window.HTMLInputElement.prototype,
         'value'
-      ).set
-      nativeInputValueSetter.call(inputRef.current, value)
+      )?.set
+      nativeInputValueSetter?.call(inputRef.current, value)
 
       const ev = new Event('input', { bubbles: true })
-      inputRef.current.dispatchEvent(ev)
+      inputRef.current?.dispatchEvent(ev)
 
       closeSelectMenu()
     }
@@ -170,14 +171,17 @@ const TextField: React.FC<Props> = ({
           </>
         )}
       </label>
-      {variant === 'select' && (
+      {variant === 'select' && children && (
         <>
           <Menu onClose={closeSelectMenu} isOpen={selectMenuIsOpen}>
-            {React.Children.map(children, (child) =>
-              React.cloneElement(child, {
+            {/* FIXME types */}
+            {React.Children.map(children as any, (child) => {
+              if (!child) return null
+
+              return React.cloneElement(child, {
                 onClick: handleMenuItemClick,
               })
-            )}
+            })}
           </Menu>
         </>
       )}

@@ -2,7 +2,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 435:
+/***/ 828:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12,7 +12,15 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "Button": () => /* reexport */ Button_Button,
-  "FullScreenDialog": () => /* reexport */ FullScreenDialog_FullScreenDialog
+  "FullScreenDialog": () => /* reexport */ FullScreenDialog_FullScreenDialog,
+  "IconButton": () => /* reexport */ IconButton_IconButton,
+  "Menu": () => /* reexport */ Menu_Menu,
+  "MenuItem": () => /* reexport */ MenuItem_MenuItem,
+  "SlidePanel": () => /* reexport */ SlidePanel_SlidePanel,
+  "SlidePanelContainer": () => /* reexport */ SlidePanelContainer_SlidePanelContainer,
+  "TextArea": () => /* reexport */ TextArea_TextArea,
+  "TextField": () => /* reexport */ TextField_TextField,
+  "Toolbar": () => /* reexport */ Toolbar_Toolbar
 });
 
 ;// CONCATENATED MODULE: external "react"
@@ -5842,21 +5850,451 @@ var FullScreenDialog_useStyles = createUseStyles({
 });
 
 var FullScreenDialog = function FullScreenDialog(_ref) {
-  var _classnames;
-
   var styles = _ref.styles,
       isOpen = _ref.isOpen,
       children = _ref.children;
   var classes = FullScreenDialog_useStyles();
   return /*#__PURE__*/external_react_default().createElement("div", {
-    className: classnames_default()(classes.root, (_classnames = {}, FullScreenDialog_defineProperty(_classnames, classes.isOpen, isOpen), FullScreenDialog_defineProperty(_classnames, styles.isOpen, isOpen), _classnames), styles.root)
+    className: classnames_default()(classes.root, FullScreenDialog_defineProperty({}, classes.isOpen, isOpen), (styles === null || styles === void 0 ? void 0 : styles.isOpen) && FullScreenDialog_defineProperty({}, styles.isOpen, isOpen), styles === null || styles === void 0 ? void 0 : styles.root)
   }, children);
 };
 
 /* harmony default export */ const FullScreenDialog_FullScreenDialog = (FullScreenDialog);
 ;// CONCATENATED MODULE: ./src/components/FullScreenDialog/index.ts
 
+;// CONCATENATED MODULE: ./src/components/IconButton/IconButton.tsx
+
+
+
+
+var IconButton_useStyles = createUseStyles({
+  root: {
+    borderRadius: '50%',
+    width: '4em',
+    height: '4em',
+    cursor: 'pointer',
+    outline: 'none',
+    border: '1px transparent',
+    background: 'none',
+    color: colors.gray6,
+    transition: '300ms',
+    '&:hover': {
+      background: colors.gray1
+    }
+  }
+});
+
+var IconButton = function IconButton(_ref) {
+  var name = _ref.name,
+      onClick = _ref.onClick,
+      styles = _ref.styles;
+  var classes = IconButton_useStyles();
+  return /*#__PURE__*/external_react_default().createElement("button", {
+    onClick: onClick,
+    className: classnames_default()(classes.root, styles === null || styles === void 0 ? void 0 : styles.root)
+  }, /*#__PURE__*/external_react_default().createElement("i", {
+    className: "material-icons"
+  }, name));
+};
+
+/* harmony default export */ const IconButton_IconButton = (IconButton);
+;// CONCATENATED MODULE: ./src/components/IconButton/index.ts
+
+;// CONCATENATED MODULE: ./src/theme.ts
+/* harmony default export */ const theme = ({
+  elevation1: '0px 2px 5px 0px rgba(50, 50, 50, 0.75)',
+  elevation2: '0px 2px 8px 0px rgba(50, 50, 50, 0.75)'
+});
+;// CONCATENATED MODULE: ./src/components/Menu/Menu.tsx
+function Menu_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+var Menu_useStyles = createUseStyles({
+  root: {
+    width: '16em',
+    background: colors.white,
+    position: 'absolute',
+    boxShadow: theme.elevation1,
+    borderRadius: '4px',
+    transition: '100ms'
+  },
+  hidden: {
+    visibility: 'hidden',
+    opacity: 0
+  }
+});
+
+var Menu = function Menu(_ref) {
+  var isOpen = _ref.isOpen,
+      children = _ref.children,
+      onClose = _ref.onClose;
+  var ref = (0,external_react_namespaceObject.useRef)(null);
+  var classes = Menu_useStyles();
+
+  var handleClickOutside = function handleClickOutside(event) {
+    var _ref$current;
+
+    if (isOpen && ref && event.target instanceof Element && !((_ref$current = ref.current) !== null && _ref$current !== void 0 && _ref$current.contains(event.target))) {
+      onClose();
+    }
+  };
+
+  (0,external_react_namespaceObject.useEffect)(function () {
+    document.addEventListener('click', handleClickOutside, true);
+    return function () {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  });
+  return /*#__PURE__*/external_react_default().createElement("div", {
+    ref: ref,
+    className: classnames_default()(classes.root, Menu_defineProperty({}, classes.hidden, !isOpen))
+  }, children);
+};
+
+/* harmony default export */ const Menu_Menu = (Menu);
+;// CONCATENATED MODULE: ./src/components/Menu/index.ts
+
+;// CONCATENATED MODULE: ./src/components/MenuItem/MenuItem.tsx
+
+
+
+var MenuItem_useStyles = createUseStyles({
+  root: {
+    transition: '300ms',
+    cursor: 'pointer',
+    padding: '1em',
+    '&:hover': {
+      background: colors.gray1
+    }
+  }
+});
+
+var MenuItem = function MenuItem(_ref) {
+  var children = _ref.children,
+      value = _ref.value,
+      onClick = _ref.onClick;
+  var classes = MenuItem_useStyles();
+
+  var handleClick = function handleClick(event) {
+    if (onClick) {
+      onClick(event, value !== null && value !== void 0 ? value : '');
+    }
+  };
+
+  return /*#__PURE__*/external_react_default().createElement("div", {
+    className: classes.root,
+    onClick: handleClick
+  }, children);
+};
+
+/* harmony default export */ const MenuItem_MenuItem = (MenuItem);
+;// CONCATENATED MODULE: ./src/components/MenuItem/index.ts
+
+;// CONCATENATED MODULE: ./src/components/SlidePanel/SlidePanel.tsx
+
+
+var SlidePanel = function SlidePanel(_ref) {
+  var children = _ref.children;
+  return /*#__PURE__*/external_react_default().createElement("div", null, children);
+};
+
+/* harmony default export */ const SlidePanel_SlidePanel = (SlidePanel);
+;// CONCATENATED MODULE: ./src/components/SlidePanel/index.ts
+
+;// CONCATENATED MODULE: ./src/components/SlidePanelContainer/SlidePanelInternal.tsx
+
+
+var SlidePanelInternal_SlidePanel = function SlidePanel(_ref) {
+  var children = _ref.children,
+      isOpen = _ref.isOpen;
+  if (!isOpen) return null;
+  return /*#__PURE__*/external_react_default().createElement("div", null, children);
+};
+
+/* harmony default export */ const SlidePanelInternal = (SlidePanelInternal_SlidePanel);
+;// CONCATENATED MODULE: ./src/components/SlidePanelContainer/SlidePanelContainer.tsx
+
+
+
+var SlidePanelContainer_useStyles = createUseStyles({
+  root: {}
+});
+
+var SlidePanelContainer = function SlidePanelContainer(_ref) {
+  var currentPanelName = _ref.currentPanelName,
+      children = _ref.children;
+  var classes = SlidePanelContainer_useStyles();
+  return /*#__PURE__*/external_react_default().createElement("div", {
+    className: classes.root
+  }, children && external_react_default().Children.map(children, function (child) {
+    return /*#__PURE__*/external_react_default().createElement(SlidePanelInternal, {
+      isOpen: currentPanelName === child.props.name
+    }, child.props.children);
+  }));
+};
+
+/* harmony default export */ const SlidePanelContainer_SlidePanelContainer = (SlidePanelContainer);
+;// CONCATENATED MODULE: ./src/components/SlidePanelContainer/index.ts
+
+;// CONCATENATED MODULE: ./src/components/TextArea/TextArea.tsx
+
+
+
+
+var TextArea_useStyles = createUseStyles({
+  root: {
+    width: '100%',
+    padding: '1em',
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    fontSize: '1em',
+    fontFamily: 'sans-serif',
+    outline: 'none',
+    borderColor: colors.borderGray,
+    resize: 'none',
+    '&:active, &:focus': {
+      borderColor: colors.secondary.dark
+    }
+  }
+});
+
+var TextArea = function TextArea(_ref) {
+  var style = _ref.style,
+      styles = _ref.styles,
+      onChange = _ref.onChange,
+      value = _ref.value;
+  var classes = TextArea_useStyles();
+  return /*#__PURE__*/external_react_default().createElement("textarea", {
+    style: style,
+    spellCheck: false,
+    onChange: onChange,
+    value: value,
+    className: classnames_default()(classes.root, styles ? styles.root : undefined)
+  });
+};
+
+/* harmony default export */ const TextArea_TextArea = (TextArea);
+;// CONCATENATED MODULE: ./src/components/TextArea/index.ts
+
+;// CONCATENATED MODULE: ./src/components/TextField/TextField.tsx
+function TextField_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || TextField_unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function TextField_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return TextField_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return TextField_arrayLikeToArray(o, minLen); }
+
+function TextField_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+var TextField_useStyles = createUseStyles({
+  root: {
+    position: 'relative',
+    borderRadius: '0.5em'
+  },
+  select: {
+    cursor: 'pointer'
+  },
+  label: {
+    position: 'relative'
+  },
+  labelText: {
+    position: 'relative',
+    color: colors.gray5
+  },
+  labelContainer: {
+    position: 'absolute',
+    top: '0.25em',
+    left: '1.1em',
+    fontFamily: 'sans-serif',
+    lineHeight: '1em',
+    transition: '200ms all',
+    color: colors.gray5
+  },
+  labelContainerSmall: {
+    top: '-1.75em',
+    left: '1.1em',
+    paddingLeft: '0.5em',
+    paddingRight: '0.5em',
+    fontSize: '0.8em',
+    position: 'absolute',
+    transition: '200ms all'
+  },
+  labelTextActive: {
+    color: colors.secondary.dark
+  },
+  input: {
+    boxSizing: 'border-box',
+    borderRadius: '4px',
+    border: "1px solid ".concat(colors.borderGray),
+    padding: '1em',
+    outline: 'none',
+    fontFamily: 'sans-serif',
+    fontSize: '1em',
+    '&:active, &:focus': {
+      borderColor: colors.secondary.dark
+    }
+  },
+  dropDownIcon: {
+    position: 'absolute',
+    top: 0,
+    right: 10,
+    color: colors.gray5,
+    cursor: 'pointer'
+  },
+  mask: {
+    position: 'absolute',
+    background: 'white',
+    height: '2px',
+    width: '100%',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)'
+  }
+});
+
+var TextField = function TextField(_ref) {
+  var _classnames;
+
+  var value = _ref.value,
+      label = _ref.label,
+      onChange = _ref.onChange,
+      styles = _ref.styles,
+      _ref$type = _ref.type,
+      type = _ref$type === void 0 ? 'default' : _ref$type,
+      _ref$variant = _ref.variant,
+      variant = _ref$variant === void 0 ? 'default' : _ref$variant,
+      children = _ref.children;
+  var inputRef = (0,external_react_namespaceObject.useRef)(null);
+
+  var _useState = (0,external_react_namespaceObject.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      selectMenuIsOpen = _useState2[0],
+      setSelectMenuIsOpen = _useState2[1];
+
+  var _useState3 = (0,external_react_namespaceObject.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      isFocused = _useState4[0],
+      setIsFocused = _useState4[1];
+
+  var classes = TextField_useStyles();
+  var labelTextClassNames = classnames_default()((_classnames = {}, TextField_defineProperty(_classnames, classes.labelText, Boolean(label)), TextField_defineProperty(_classnames, classes.labelTextActive, isFocused), _classnames));
+
+  if (children && variant !== 'select') {
+    throw new Error("Children can only be passed to a TextField if the variant is 'select'");
+  }
+
+  var toggleFocus = function toggleFocus() {
+    setIsFocused(!isFocused);
+  };
+
+  var openSelectMenu = function openSelectMenu() {
+    setSelectMenuIsOpen(true);
+  };
+
+  var closeSelectMenu = function closeSelectMenu() {
+    setSelectMenuIsOpen(false);
+  };
+
+  var handleMenuItemClick = function handleMenuItemClick(event, value) {
+    if (inputRef) {
+      var _Object$getOwnPropert, _inputRef$current;
+
+      var nativeInputValueSetter = (_Object$getOwnPropert = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')) === null || _Object$getOwnPropert === void 0 ? void 0 : _Object$getOwnPropert.set;
+      nativeInputValueSetter === null || nativeInputValueSetter === void 0 ? void 0 : nativeInputValueSetter.call(inputRef.current, value);
+      var ev = new Event('input', {
+        bubbles: true
+      });
+      (_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 ? void 0 : _inputRef$current.dispatchEvent(ev);
+      closeSelectMenu();
+    }
+  };
+
+  return /*#__PURE__*/external_react_default().createElement("div", {
+    className: classnames_default()(classes.root, styles === null || styles === void 0 ? void 0 : styles.root)
+  }, /*#__PURE__*/external_react_default().createElement("label", {
+    className: classes.label
+  }, /*#__PURE__*/external_react_default().createElement("span", {
+    className: classnames_default()(classes.labelContainer, TextField_defineProperty({}, classes.labelContainerSmall, value || isFocused))
+  }, /*#__PURE__*/external_react_default().createElement("div", {
+    className: classes.mask
+  }), /*#__PURE__*/external_react_default().createElement("span", {
+    className: labelTextClassNames
+  }, label)), /*#__PURE__*/external_react_default().createElement("input", {
+    ref: inputRef,
+    type: type === 'default' ? '' : type,
+    className: classnames_default()(classes.input, styles === null || styles === void 0 ? void 0 : styles.input, TextField_defineProperty({}, classes.select, variant === 'select')),
+    value: value,
+    onChange: onChange,
+    onFocus: variant === 'default' ? toggleFocus : function () {},
+    onBlur: variant === 'default' ? toggleFocus : function () {},
+    onClick: variant === 'select' ? openSelectMenu : function () {},
+    readOnly: variant === 'select'
+  }), variant === 'select' && /*#__PURE__*/external_react_default().createElement((external_react_default()).Fragment, null, /*#__PURE__*/external_react_default().createElement("i", {
+    className: classnames_default()('material-icons', classes.dropDownIcon)
+  }, "arrow_drop_down"))), variant === 'select' && children && /*#__PURE__*/external_react_default().createElement((external_react_default()).Fragment, null, /*#__PURE__*/external_react_default().createElement(Menu_Menu, {
+    onClose: closeSelectMenu,
+    isOpen: selectMenuIsOpen
+  }, external_react_default().Children.map(children, function (child) {
+    if (!child) return null;
+    return /*#__PURE__*/external_react_default().cloneElement(child, {
+      onClick: handleMenuItemClick
+    });
+  }))));
+};
+
+/* harmony default export */ const TextField_TextField = (TextField);
+;// CONCATENATED MODULE: ./src/components/TextField/index.ts
+
+;// CONCATENATED MODULE: ./src/components/Toolbar/Toolbar.tsx
+
+
+
+
+var Toolbar_useStyles = createUseStyles({
+  root: {
+    background: colors.primary.dark,
+    height: '2em',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '1em'
+  }
+});
+
+var Toolbar = function Toolbar(_ref) {
+  var children = _ref.children,
+      styles = _ref.styles;
+  var classes = Toolbar_useStyles();
+  return /*#__PURE__*/external_react_default().createElement("div", {
+    className: classnames_default()(classes.root, styles === null || styles === void 0 ? void 0 : styles.root)
+  }, children);
+};
+
+/* harmony default export */ const Toolbar_Toolbar = (Toolbar);
+;// CONCATENATED MODULE: ./src/components/Toolbar/index.ts
+
 ;// CONCATENATED MODULE: ./src/index.ts
+
+
+
+
+
+
+
+
 
 
 
@@ -6347,7 +6785,7 @@ var result = symbolObservablePonyfill(root);
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(435);
+/******/ 	return __webpack_require__(828);
 /******/ })()
 
 ));

@@ -1,9 +1,15 @@
 const path = require('path')
+const CopyPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const isDev = process.env.NODE_ENV === 'development'
 
-const plugins = [new CleanWebpackPlugin()]
+const plugins = [
+  new CleanWebpackPlugin(),
+  // new CopyPlugin({
+  //   patterns: [{ from: 'src/main.d.ts', to: 'main.d.ts' }],
+  // }),
+]
 
 module.exports = {
   optimization: {

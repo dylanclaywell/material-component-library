@@ -44,7 +44,7 @@ const TextArea: React.FC<Props> = ({
       spellCheck={false}
       onChange={onChange}
       value={value}
-      className={classnames(classes.root, styles.root)}
+      className={classnames(classes.root, styles ? styles.root : undefined)}
     />
   )
 }

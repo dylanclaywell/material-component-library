@@ -23,8 +23,10 @@ export type Props = {
 const MenuItem: React.FC<Props> = ({ children, value, onClick }: Props) => {
   const classes = useStyles()
 
-  const handleClick = (event) => {
-    onClick(event, value)
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = (event) => {
+    if (onClick) {
+      onClick(event, value ?? '')
+    }
   }
 
   return (

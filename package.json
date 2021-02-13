@@ -6,7 +6,11 @@
   "author": "Dylan Claywell <djclaywell@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack",
+    "check:types": "tsc --noEmit",
+    "check:lint": "eslint src --ext .ts",
+    "check:styles": "prettier --check \"src/**/*.ts\"",
+    "fix:styles": "prettier --write \"src/**/*.ts\"",
+    "build": "cross-env NODE_ENV=production webpack && tsc --emitDeclarationOnly",
     "start:dev": "cross-env NODE_ENV=development webpack serve"
   },
   "devDependencies": {
@@ -49,5 +53,8 @@
   "peerDependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
-  }
+  },
+  "files": [
+    "dist/**/*"
+  ]
 }

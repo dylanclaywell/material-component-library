@@ -1,1 +1,1 @@
-export { default } from './SlidePanel'
+export { default, Props } from './SlidePanel'

@@ -27,11 +27,16 @@ type Props = {
 }
 
 const Menu: React.FC<Props> = ({ isOpen, children, onClose }: Props) => {
-  const ref = useRef<HTMLDivElement>()
+  const ref = useRef<HTMLDivElement>(null)
   const classes = useStyles()
 
-  const handleClickOutside = (event) => {
-    if (isOpen && ref && !ref.current.contains(event.target)) {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      isOpen &&
+      ref &&
+      event.target instanceof Element &&
+      !ref.current?.contains(event.target)
+    ) {
       onClose()
     }
   }
