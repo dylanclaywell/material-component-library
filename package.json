@@ -1,12 +1,14 @@
 {
   "name": "@dylanclaywell/material-component-library",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "main": "dist/index.js",
   "repository": "https://github.com/dylanclaywell/material-component-library.git",
   "author": "Dylan Claywell <djclaywell@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack"
+    "build": "cross-env NODE_ENV=production webpack",
+    "install": "yarn build",
+    "start:dev": "cross-env NODE_ENV=development webpack serve"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
@@ -27,14 +29,17 @@
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-react": "^7.22.0",
+    "html-webpack-plugin": "^5.1.0",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
     "webpack": "^5.15.0",
-    "webpack-cli": "^4.3.1"
+    "webpack-cli": "^4.3.1",
+    "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "copy-webpack-plugin": "^7.0.0",
     "cross-env": "^7.0.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
