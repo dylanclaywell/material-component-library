@@ -1,6 +1,6 @@
 {
   "name": "@dylanclaywell/material-component-library",
-  "version": "1.0.14-alpha",
+  "version": "1.0.15-alpha",
   "main": "dist/index.js",
   "repository": "https://github.com/dylanclaywell/material-component-library.git",
   "author": "Dylan Claywell <djclaywell@gmail.com>",
