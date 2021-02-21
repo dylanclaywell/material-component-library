@@ -43,6 +43,8 @@ const FullScreenDialog: React.FC<Props> = ({
         styles?.isOpen && { [styles.isOpen]: isOpen },
         styles?.root
       )}
+      role="presentation"
+      aria-hidden={!isOpen}
     >
       {children}
     </div>
