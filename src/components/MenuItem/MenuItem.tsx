@@ -30,7 +30,11 @@ const MenuItem: React.FC<Props> = ({ children, value, onClick }: Props) => {
   }
 
   return (
-    <div className={classes.root} onClick={handleClick}>
+    <div
+      className={classes.root}
+      onClick={handleClick}
+      {...(onClick ? { role: 'button' } : {})}
+    >
       {children}
     </div>
   )

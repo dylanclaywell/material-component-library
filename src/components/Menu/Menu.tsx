@@ -53,6 +53,7 @@ const Menu: React.FC<Props> = ({ isOpen, children, onClose }: Props) => {
     <div
       ref={ref}
       className={classnames(classes.root, { [classes.hidden]: !isOpen })}
+      {...(!isOpen ? { 'aria-hidden': 'true' } : {})}
     >
       {children}
     </div>

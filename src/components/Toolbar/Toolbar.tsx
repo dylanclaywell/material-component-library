@@ -21,7 +21,7 @@ type Props = {
   }
 }
 
-const Toolbar = ({ children, styles }: Props) => {
+const Toolbar: React.FC<Props> = ({ children, styles }: Props) => {
   const classes = useStyles()
 
   return (

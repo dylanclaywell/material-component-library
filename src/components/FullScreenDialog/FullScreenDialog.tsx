@@ -22,9 +22,13 @@ const useStyles = createUseStyles({
     height: '100%',
     background: colors.white,
     transition: '300ms',
+    opacity: 0,
+    visibility: 'hidden',
   },
   isOpen: {
     top: 0,
+    visibility: 'visible',
+    opacity: 1,
   },
 })
 
@@ -44,7 +48,7 @@ const FullScreenDialog: React.FC<Props> = ({
         styles?.root
       )}
       role="presentation"
-      aria-hidden={!isOpen}
+      {...(!isOpen ? { 'aria-hidden': 'true' } : {})}
     >
       {children}
     </div>

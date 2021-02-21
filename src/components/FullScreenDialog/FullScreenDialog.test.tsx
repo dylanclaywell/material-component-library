@@ -23,11 +23,9 @@ describe('FullScreenDialog', () => {
       </FullScreenDialog>
     )
 
-    const dialog = screen.getByRole('presentation', { hidden: true })
-    const hidden = screen.queryByRole('presentation')
+    const content = screen.getByText(/content/i)
 
-    expect(hidden).toBeNull()
-    expect(dialog).toBeDefined()
+    expect(content).not.toBeVisible()
   })
 
   test('it is visible when isOpen is true', () => {
@@ -39,6 +37,6 @@ describe('FullScreenDialog', () => {
 
     const dialog = screen.getByRole('presentation')
 
-    expect(dialog).toBeDefined()
+    expect(dialog).toBeVisible()
   })
 })

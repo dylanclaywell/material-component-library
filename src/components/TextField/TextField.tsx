@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { createUseStyles } from 'react-jss'
 import classnames from 'classnames'
+import { v4 as uuidv4 } from 'uuid'
 
 import { Props as MenuItemProps } from '../MenuItem'
 import Menu from '../Menu'
@@ -97,6 +98,7 @@ const TextField: React.FC<Props> = ({
   variant = 'default',
   children,
 }: Props) => {
+  const [id] = useState(`textfield-${uuidv4()}`)
   const inputRef = useRef<HTMLInputElement>(null)
   const [selectMenuIsOpen, setSelectMenuIsOpen] = useState<boolean>(false)
   const [isFocused, setIsFocused] = useState<boolean>(false)
@@ -141,7 +143,7 @@ const TextField: React.FC<Props> = ({
 
   return (
     <div className={classnames(classes.root, styles?.root)}>
-      <label className={classes.label}>
+      <label htmlFor={id} className={classes.label}>
         <span
           className={classnames(classes.labelContainer, {
             [classes.labelContainerSmall]: value || isFocused,
@@ -151,6 +153,7 @@ const TextField: React.FC<Props> = ({
           <span className={labelTextClassNames}>{label}</span>
         </span>
         <input
+          id={id}
           ref={inputRef}
           type={type === 'default' ? '' : type}
           className={classnames(classes.input, styles?.input, {

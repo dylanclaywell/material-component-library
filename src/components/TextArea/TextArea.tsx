@@ -24,7 +24,7 @@ const useStyles = createUseStyles({
 type Props = {
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
   value: string
-  style: any
+  style?: any
   styles?: {
     root?: string
   }
