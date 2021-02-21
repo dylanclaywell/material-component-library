@@ -1,6 +1,6 @@
 {
   "name": "@dylanclaywell/material-component-library",
-  "version": "1.0.12-alpha",
+  "version": "1.0.13-alpha",
   "main": "dist/index.js",
   "repository": "https://github.com/dylanclaywell/material-component-library.git",
   "author": "Dylan Claywell <djclaywell@gmail.com>",
@@ -17,7 +17,8 @@
     "test:debug": "jest --runInBand --watch --inspectBrk",
     "validate": "yarn check:types && yarn check:lint && yarn check:styles && yarn test && yarn build",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token e19c6d81d2a4"
   },
   "husky": {
     "pre-commit": "yarn validate"
