@@ -7,7 +7,8 @@ import colors from '../../colors'
 const useStyles = createUseStyles(
   {
     root: {
-      padding: '1em',
+      fontSize: '0.9em',
+      padding: '0.5em',
       border: 'none',
       textTransform: 'uppercase',
       fontWeight: 600,

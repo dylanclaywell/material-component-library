@@ -1,5 +1,5 @@
 import React from 'react';
-declare type Props = {
+export declare type Props = {
     onClick: () => void;
     children: React.ReactNode;
     variant?: 'text' | 'contained';

@@ -32,6 +32,7 @@ const useStyles = createUseStyles({
   },
   label: {
     position: 'relative' as const,
+    display: 'inline-block',
   },
   labelText: {
     position: 'relative',
@@ -39,7 +40,8 @@ const useStyles = createUseStyles({
   },
   labelContainer: {
     position: 'absolute' as const,
-    top: '0.25em',
+    top: '50%',
+    transform: 'translateY(-50%)',
     left: '1.1em',
     fontFamily: 'sans-serif',
     lineHeight: '1em',
@@ -47,7 +49,7 @@ const useStyles = createUseStyles({
     color: colors.gray5,
   },
   labelContainerSmall: {
-    top: '-1.75em',
+    top: '0',
     left: '1.1em',
     paddingLeft: '0.5em',
     paddingRight: '0.5em',
@@ -72,7 +74,8 @@ const useStyles = createUseStyles({
   },
   dropDownIcon: {
     position: 'absolute',
-    top: 0,
+    top: '50%',
+    transform: 'translateY(-50%)',
     right: 10,
     color: colors.gray5,
     cursor: 'pointer',
