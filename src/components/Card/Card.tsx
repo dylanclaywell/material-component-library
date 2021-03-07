@@ -7,8 +7,8 @@ import colors from '../../colors'
 type Props = {
   children: React.ReactNode
   square?: boolean
-  elevation: 1 | 2 | 3 | 4
-  elevated: boolean
+  elevation?: 1 | 2 | 3 | 4
+  elevated?: boolean
 }
 
 type Elevation = 'elevation1' | 'elevation2' | 'elevation3' | 'elevation4'
