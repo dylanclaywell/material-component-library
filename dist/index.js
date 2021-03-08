@@ -2,7 +2,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 826:
+/***/ 675:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -17,6 +17,8 @@ __webpack_require__.d(__webpack_exports__, {
   "CardContent": () => /* reexport */ CardContent_CardContent,
   "CardHeader": () => /* reexport */ CardHeader_CardHeader,
   "FullScreenDialog": () => /* reexport */ FullScreenDialog_FullScreenDialog,
+  "Grid": () => /* reexport */ Grid_Grid,
+  "GridItem": () => /* reexport */ GridItem_GridItem,
   "IconButton": () => /* reexport */ IconButton_IconButton,
   "Menu": () => /* reexport */ Menu_Menu,
   "MenuItem": () => /* reexport */ MenuItem_MenuItem,
@@ -6422,7 +6424,121 @@ var CardContent = function CardContent(_ref) {
 /* harmony default export */ const CardContent_CardContent = (CardContent);
 ;// CONCATENATED MODULE: ./src/components/CardContent/index.ts
 
+;// CONCATENATED MODULE: ./src/components/GridItem/GridItem.tsx
+
+
+var GridItem = function GridItem(_ref) {
+  var children = _ref.children;
+  return /*#__PURE__*/external_react_default().createElement("div", null, children);
+};
+
+/* harmony default export */ const GridItem_GridItem = (GridItem);
+;// CONCATENATED MODULE: ./src/components/GridItem/index.ts
+
+;// CONCATENATED MODULE: ./src/components/Grid/Grid.tsx
+function Grid_slicedToArray(arr, i) { return Grid_arrayWithHoles(arr) || Grid_iterableToArrayLimit(arr, i) || Grid_unsupportedIterableToArray(arr, i) || Grid_nonIterableRest(); }
+
+function Grid_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function Grid_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return Grid_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return Grid_arrayLikeToArray(o, minLen); }
+
+function Grid_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function Grid_iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function Grid_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+var fontSizeInPixels = '16';
+var Grid_useStyles = createUseStyles({
+  root: {
+    width: '100%',
+    display: 'flex',
+    flexWrap: 'wrap',
+    fontSize: "".concat(fontSizeInPixels, "px") // justifyContent: 'space-around',
+
+  },
+  '@media (min-width: 1440)': {},
+  child: function child(props) {
+    return {
+      // flexGrow: 1,
+      marginRight: "".concat(props.spacing, "px"),
+      '&:last-child': {
+        marginRight: 0
+      },
+      '&:nth-child(12)': {
+        marginRight: 0
+      }
+    };
+  }
+});
+
+var useWidth = function useWidth(ref) {
+  var _useState = (0,external_react_namespaceObject.useState)(0),
+      _useState2 = Grid_slicedToArray(_useState, 2),
+      width = _useState2[0],
+      setWidth = _useState2[1];
+
+  (0,external_react_namespaceObject.useEffect)(function () {
+    if (ref.current) {
+      setWidth(ref.current.offsetWidth || 0);
+    }
+
+    var handleResize = function handleResize() {
+      var _ref$current;
+
+      setWidth((ref === null || ref === void 0 ? void 0 : (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.offsetWidth) || 0);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return function () {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [ref]);
+  return width;
+};
+
+var Grid = function Grid(_ref) {
+  var children = _ref.children,
+      _ref$spacing = _ref.spacing,
+      spacing = _ref$spacing === void 0 ? 8 : _ref$spacing;
+  external_react_default().Children.forEach(children, function (child) {
+    if ( /*#__PURE__*/external_react_default().isValidElement(child) && (child === null || child === void 0 ? void 0 : child.type) !== GridItem_GridItem) {
+      throw new Error('Grid children must be of type GridItem');
+    }
+  });
+  var classes = Grid_useStyles({
+    spacing: spacing
+  });
+  var ref = (0,external_react_namespaceObject.useRef)(null);
+  var width = useWidth(ref);
+  var numberOfChildren = external_react_default().Children.count(children);
+  console.log(numberOfChildren);
+  var columns = 12;
+  var wrappedChildren = external_react_default().Children.map(children, function (child, index) {
+    var childWidth = (width - spacing * (numberOfChildren - 1)) / (numberOfChildren > columns ? columns : numberOfChildren);
+    console.log('modifier', childWidth);
+    return /*#__PURE__*/external_react_default().createElement("div", {
+      style: {
+        width: "".concat(childWidth, "px")
+      },
+      className: classes.child
+    }, child);
+  });
+  return /*#__PURE__*/external_react_default().createElement("div", {
+    ref: ref,
+    className: classes.root
+  }, wrappedChildren);
+};
+
+/* harmony default export */ const Grid_Grid = (Grid);
+;// CONCATENATED MODULE: ./src/components/Grid/index.ts
+
 ;// CONCATENATED MODULE: ./src/index.ts
+
+
 
 
 
@@ -6925,7 +7041,7 @@ var result = symbolObservablePonyfill(root);
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(826);
+/******/ 	return __webpack_require__(675);
 /******/ })()
 
 ));

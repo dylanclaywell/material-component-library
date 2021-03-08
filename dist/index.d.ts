@@ -12,3 +12,5 @@ export { default as Card } from './components/Card';
 export { default as CardActions } from './components/CardActions';
 export { default as CardHeader } from './components/CardHeader';
 export { default as CardContent } from './components/CardContent';
+export { default as Grid } from './components/Grid';
+export { default as GridItem } from './components/GridItem';
