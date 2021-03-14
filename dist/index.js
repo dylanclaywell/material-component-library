@@ -6457,29 +6457,50 @@ var Grid_useStyles = createUseStyles({
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
-    fontSize: "".concat(fontSizeInPixels, "px") // justifyContent: 'space-around',
-
+    fontSize: "".concat(fontSizeInPixels, "px")
   },
   '@media (min-width: 1440)': {},
   child: function child(props) {
     return {
-      // flexGrow: 1,
-      marginRight: "".concat(props.spacing, "px"),
-      '&:last-child': {
-        marginRight: 0
-      },
-      '&:nth-child(12)': {
-        marginRight: 0
-      }
+      margin: "".concat(props.spacing / 2, "px")
     };
   }
 });
 
-var useWidth = function useWidth(ref) {
-  var _useState = (0,external_react_namespaceObject.useState)(0),
+var getWindowDimensions = function getWindowDimensions() {
+  var _window = window,
+      innerHeight = _window.innerHeight,
+      innerWidth = _window.innerWidth;
+  return {
+    width: innerWidth,
+    height: innerHeight
+  };
+};
+
+var useWindowDimensions = function useWindowDimensions() {
+  var _useState = (0,external_react_namespaceObject.useState)(getWindowDimensions),
       _useState2 = Grid_slicedToArray(_useState, 2),
-      width = _useState2[0],
-      setWidth = _useState2[1];
+      windowDimensions = _useState2[0],
+      setWindowDimensions = _useState2[1];
+
+  (0,external_react_namespaceObject.useEffect)(function () {
+    var handleResize = function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return function () {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [windowDimensions]);
+  return windowDimensions;
+};
+
+var useWidth = function useWidth(ref) {
+  var _useState3 = (0,external_react_namespaceObject.useState)(0),
+      _useState4 = Grid_slicedToArray(_useState3, 2),
+      width = _useState4[0],
+      setWidth = _useState4[1];
 
   (0,external_react_namespaceObject.useEffect)(function () {
     if (ref.current) {
@@ -6500,6 +6521,16 @@ var useWidth = function useWidth(ref) {
   return width;
 };
 
+var getNumberOfColumns = function getNumberOfColumns(width) {
+  if (width > 839) {
+    return 12;
+  } else if (width > 599) {
+    return 8;
+  }
+
+  return 4;
+};
+
 var Grid = function Grid(_ref) {
   var children = _ref.children,
       _ref$spacing = _ref.spacing,
@@ -6514,12 +6545,16 @@ var Grid = function Grid(_ref) {
   });
   var ref = (0,external_react_namespaceObject.useRef)(null);
   var width = useWidth(ref);
+
+  var _useWindowDimensions = useWindowDimensions(),
+      screenWidth = _useWindowDimensions.width;
+
   var numberOfChildren = external_react_default().Children.count(children);
   console.log(numberOfChildren);
-  var columns = 12;
-  var wrappedChildren = external_react_default().Children.map(children, function (child, index) {
-    var childWidth = (width - spacing * (numberOfChildren - 1)) / (numberOfChildren > columns ? columns : numberOfChildren);
-    console.log('modifier', childWidth);
+  var numberOfColumns = getNumberOfColumns(screenWidth);
+  var wrappedChildren = external_react_default().Children.map(children, function (child) {
+    var something = numberOfChildren > numberOfColumns ? numberOfColumns : numberOfChildren;
+    var childWidth = (width - spacing * something) / something;
     return /*#__PURE__*/external_react_default().createElement("div", {
       style: {
         width: "".concat(childWidth, "px")

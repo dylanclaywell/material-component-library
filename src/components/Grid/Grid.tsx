@@ -15,20 +15,35 @@ const useStyles = createUseStyles({
     display: 'flex',
     flexWrap: 'wrap',
     fontSize: `${fontSizeInPixels}px`,
-    // justifyContent: 'space-around',
   },
   '@media (min-width: 1440)': {},
   child: (props) => ({
-    // flexGrow: 1,
-    marginRight: `${props.spacing}px`,
-    '&:last-child': {
-      marginRight: 0,
-    },
-    '&:nth-child(12)': {
-      marginRight: 0,
-    },
+    margin: `${props.spacing / 2}px`,
   }),
 })
+
+const getWindowDimensions = () => {
+  const { innerHeight, innerWidth } = window
+  return { width: innerWidth, height: innerHeight }
+}
+
+const useWindowDimensions = () => {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowDimensions(getWindowDimensions())
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [windowDimensions])
+
+  return windowDimensions
+}
 
 const useWidth = (ref: React.RefObject<HTMLDivElement>) => {
   const [width, setWidth] = useState(0)
@@ -52,6 +67,16 @@ const useWidth = (ref: React.RefObject<HTMLDivElement>) => {
   return width
 }
 
+const getNumberOfColumns = (width: number) => {
+  if (width > 839) {
+    return 12
+  } else if (width > 599) {
+    return 8
+  }
+
+  return 4
+}
+
 const Grid: React.FC<Props> = ({ children, spacing = 8 }: Props) => {
   React.Children.forEach(children, (child) => {
     if (React.isValidElement(child) && child?.type !== GridItem) {
@@ -62,19 +87,18 @@ const Grid: React.FC<Props> = ({ children, spacing = 8 }: Props) => {
   const classes = useStyles({ spacing })
   const ref = useRef<HTMLDivElement>(null)
   const width = useWidth(ref)
+  const { width: screenWidth } = useWindowDimensions()
 
   const numberOfChildren = React.Children.count(children)
   console.log(numberOfChildren)
-  const columns = 12
+  const numberOfColumns = getNumberOfColumns(screenWidth)
 
   const wrappedChildren = React.Children.map(
     children as React.ReactElement<GridItemProps>[],
-    (child, index) => {
-      const childWidth =
-        (width - spacing * (numberOfChildren - 1)) /
-        (numberOfChildren > columns ? columns : numberOfChildren)
-
-      console.log('modifier', childWidth)
+    (child) => {
+      const something =
+        numberOfChildren > numberOfColumns ? numberOfColumns : numberOfChildren
+      const childWidth = (width - spacing * something) / something
 
       return (
         <div
