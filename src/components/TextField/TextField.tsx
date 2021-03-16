@@ -20,6 +20,7 @@ type Props = {
   children?:
     | React.ReactElement<typeof MenuItemProps>
     | React.ReactElement<typeof MenuItemProps>[]
+  fullWidth?: boolean
 }
 
 const useStyles = createUseStyles({
@@ -89,6 +90,9 @@ const useStyles = createUseStyles({
     left: '50%',
     transform: 'translate(-50%, -50%)',
   },
+  fullWidth: {
+    width: '100%',
+  },
 })
 
 const TextField: React.FC<Props> = ({
@@ -99,6 +103,7 @@ const TextField: React.FC<Props> = ({
   type = 'default',
   variant = 'default',
   children,
+  fullWidth = false,
 }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [selectMenuIsOpen, setSelectMenuIsOpen] = useState<boolean>(false)
@@ -144,7 +149,11 @@ const TextField: React.FC<Props> = ({
 
   return (
     <div className={classnames(classes.root, styles?.root)}>
-      <label className={classes.label}>
+      <label
+        className={classnames(classes.label, {
+          [classes.fullWidth]: fullWidth,
+        })}
+      >
         <span
           className={classnames(classes.labelContainer, {
             [classes.labelContainerSmall]: value || isFocused,
@@ -158,6 +167,7 @@ const TextField: React.FC<Props> = ({
           type={type === 'default' ? '' : type}
           className={classnames(classes.input, styles?.input, {
             [classes.select]: variant === 'select',
+            [classes.fullWidth]: fullWidth,
           })}
           value={value}
           onChange={onChange}

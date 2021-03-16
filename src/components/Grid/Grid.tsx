@@ -77,6 +77,21 @@ const getNumberOfColumns = (width: number) => {
   return 4
 }
 
+const getSizeProp = (childProps: GridItemProps, numberOfColumns: number) => {
+  switch (numberOfColumns) {
+    case 12:
+      return childProps.large ?? childProps.medium ?? childProps.small ?? 1
+      break
+    case 8:
+      return childProps.medium ?? childProps.large ?? childProps.small ?? 1
+      break
+    case 4:
+      return childProps.small ?? childProps.large ?? childProps.medium ?? 1
+  }
+
+  return 1
+}
+
 const Grid: React.FC<Props> = ({ children, spacing = 8 }: Props) => {
   React.Children.forEach(children, (child) => {
     if (React.isValidElement(child) && child?.type !== GridItem) {
@@ -96,9 +111,10 @@ const Grid: React.FC<Props> = ({ children, spacing = 8 }: Props) => {
   const wrappedChildren = React.Children.map(
     children as React.ReactElement<GridItemProps>[],
     (child) => {
-      const something =
-        numberOfChildren > numberOfColumns ? numberOfColumns : numberOfChildren
-      const childWidth = (width - spacing * something) / something
+      const sizeProp = getSizeProp(child.props, numberOfColumns)
+      const columns = numberOfColumns / sizeProp
+      console.log(numberOfColumns, sizeProp)
+      const childWidth = (width - spacing * columns) / columns
 
       return (
         <div

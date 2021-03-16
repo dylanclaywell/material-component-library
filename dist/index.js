@@ -6173,11 +6173,14 @@ var TextField_useStyles = createUseStyles({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)'
+  },
+  fullWidth: {
+    width: '100%'
   }
 });
 
 var TextField = function TextField(_ref) {
-  var _classnames;
+  var _classnames, _classnames4;
 
   var value = _ref.value,
       label = _ref.label,
@@ -6187,7 +6190,9 @@ var TextField = function TextField(_ref) {
       type = _ref$type === void 0 ? 'default' : _ref$type,
       _ref$variant = _ref.variant,
       variant = _ref$variant === void 0 ? 'default' : _ref$variant,
-      children = _ref.children;
+      children = _ref.children,
+      _ref$fullWidth = _ref.fullWidth,
+      fullWidth = _ref$fullWidth === void 0 ? false : _ref$fullWidth;
   var inputRef = (0,external_react_namespaceObject.useRef)(null);
 
   var _useState = (0,external_react_namespaceObject.useState)(false),
@@ -6236,7 +6241,7 @@ var TextField = function TextField(_ref) {
   return /*#__PURE__*/external_react_default().createElement("div", {
     className: classnames_default()(classes.root, styles === null || styles === void 0 ? void 0 : styles.root)
   }, /*#__PURE__*/external_react_default().createElement("label", {
-    className: classes.label
+    className: classnames_default()(classes.label, TextField_defineProperty({}, classes.fullWidth, fullWidth))
   }, /*#__PURE__*/external_react_default().createElement("span", {
     className: classnames_default()(classes.labelContainer, TextField_defineProperty({}, classes.labelContainerSmall, value || isFocused))
   }, /*#__PURE__*/external_react_default().createElement("div", {
@@ -6246,7 +6251,7 @@ var TextField = function TextField(_ref) {
   }, label)), /*#__PURE__*/external_react_default().createElement("input", {
     ref: inputRef,
     type: type === 'default' ? '' : type,
-    className: classnames_default()(classes.input, styles === null || styles === void 0 ? void 0 : styles.input, TextField_defineProperty({}, classes.select, variant === 'select')),
+    className: classnames_default()(classes.input, styles === null || styles === void 0 ? void 0 : styles.input, (_classnames4 = {}, TextField_defineProperty(_classnames4, classes.select, variant === 'select'), TextField_defineProperty(_classnames4, classes.fullWidth, fullWidth), _classnames4)),
     value: value,
     onChange: onChange,
     onFocus: variant === 'default' ? toggleFocus : function () {},
@@ -6428,7 +6433,10 @@ var CardContent = function CardContent(_ref) {
 
 
 var GridItem = function GridItem(_ref) {
-  var children = _ref.children;
+  var children = _ref.children,
+      large = _ref.large,
+      medium = _ref.medium,
+      small = _ref.small;
   return /*#__PURE__*/external_react_default().createElement("div", null, children);
 };
 
@@ -6531,10 +6539,29 @@ var getNumberOfColumns = function getNumberOfColumns(width) {
   return 4;
 };
 
-var Grid = function Grid(_ref) {
-  var children = _ref.children,
-      _ref$spacing = _ref.spacing,
-      spacing = _ref$spacing === void 0 ? 8 : _ref$spacing;
+var getSizeProp = function getSizeProp(childProps, numberOfColumns) {
+  var _ref, _ref2, _childProps$large, _ref3, _ref4, _childProps$medium, _ref5, _ref6, _childProps$small;
+
+  switch (numberOfColumns) {
+    case 12:
+      return (_ref = (_ref2 = (_childProps$large = childProps.large) !== null && _childProps$large !== void 0 ? _childProps$large : childProps.medium) !== null && _ref2 !== void 0 ? _ref2 : childProps.small) !== null && _ref !== void 0 ? _ref : 1;
+      break;
+
+    case 8:
+      return (_ref3 = (_ref4 = (_childProps$medium = childProps.medium) !== null && _childProps$medium !== void 0 ? _childProps$medium : childProps.large) !== null && _ref4 !== void 0 ? _ref4 : childProps.small) !== null && _ref3 !== void 0 ? _ref3 : 1;
+      break;
+
+    case 4:
+      return (_ref5 = (_ref6 = (_childProps$small = childProps.small) !== null && _childProps$small !== void 0 ? _childProps$small : childProps.large) !== null && _ref6 !== void 0 ? _ref6 : childProps.medium) !== null && _ref5 !== void 0 ? _ref5 : 1;
+  }
+
+  return 1;
+};
+
+var Grid = function Grid(_ref7) {
+  var children = _ref7.children,
+      _ref7$spacing = _ref7.spacing,
+      spacing = _ref7$spacing === void 0 ? 8 : _ref7$spacing;
   external_react_default().Children.forEach(children, function (child) {
     if ( /*#__PURE__*/external_react_default().isValidElement(child) && (child === null || child === void 0 ? void 0 : child.type) !== GridItem_GridItem) {
       throw new Error('Grid children must be of type GridItem');
@@ -6553,8 +6580,10 @@ var Grid = function Grid(_ref) {
   console.log(numberOfChildren);
   var numberOfColumns = getNumberOfColumns(screenWidth);
   var wrappedChildren = external_react_default().Children.map(children, function (child) {
-    var something = numberOfChildren > numberOfColumns ? numberOfColumns : numberOfChildren;
-    var childWidth = (width - spacing * something) / something;
+    var sizeProp = getSizeProp(child.props, numberOfColumns);
+    var columns = numberOfColumns / sizeProp;
+    console.log(numberOfColumns, sizeProp);
+    var childWidth = (width - spacing * columns) / columns;
     return /*#__PURE__*/external_react_default().createElement("div", {
       style: {
         width: "".concat(childWidth, "px")

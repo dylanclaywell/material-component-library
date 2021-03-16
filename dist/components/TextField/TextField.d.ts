@@ -11,6 +11,7 @@ declare type Props = {
     type?: 'password' | 'email' | 'default';
     variant?: 'default' | 'select';
     children?: React.ReactElement<typeof MenuItemProps> | React.ReactElement<typeof MenuItemProps>[];
+    fullWidth?: boolean;
 };
 declare const TextField: React.FC<Props>;
 export default TextField;
